@@ -8,6 +8,7 @@ public class Gartic extends JFrame {
 	protected OuveClique clique = new OuveClique(imagem,painel);
 	protected Jogador jogador1;
 	protected Jogador jogador2;
+	protected Rodada rodada;
 	public Gartic(){
 		
 	}

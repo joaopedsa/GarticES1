@@ -6,7 +6,6 @@ import javax.swing.JOptionPane;
 import rede.AtorRede;
 
 public class AtorJogador {
-	protected JFrame frame;
 	protected AtorRede atorRede;
 	public Gartic gartic;
 	InterfaceJogador telaJogo;
@@ -20,7 +19,7 @@ public class AtorJogador {
 		gartic.painel.addMouseMotionListener(gartic.clique);
 	}
 	public JFrame getFrame(){
-		return frame;
+		return telaJogo;
 	}
 	
 	public static void main(String args[]){

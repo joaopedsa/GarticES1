@@ -6,28 +6,31 @@ import java.awt.event.*;
 
 import static java.awt.Font.PLAIN;
 
-public class InterfaceJogador {
-    private JFrame janela;
-    private JPanel painel, painel2;
-    private JLabel pontuacao, jogador1, jogador2, desenhe, labelareadesenho;
-    private JTextField rodada;
-    private static JTextField tempo;
-    private JTextField p1;
-    private JTextField p2;
-    private JTextField desenho;
-    private JTextField escreva;
-    private JTextArea respostas;
-    private JMenuBar menu;
-    private JMenuBar barra = new JMenuBar();
-    private JMenu conectar = new JMenu("Conectar");
-    private JMenu limparTela = new JMenu("Limpar Tela");
-    private JMenuItem concetarSe = new JMenuItem("Conectar-se");
-    private JMenuItem ApagarDesenho = new JMenuItem("Apagar desenho");
-    private Gartic gartic;
+public class InterfaceJogador extends JFrame {
+    protected JFrame janela;
+    protected JPanel painel, painel2;
+    protected JLabel pontuacao, jogador1, jogador2, desenhe, labelareadesenho;
+    protected JTextField rodada;
+    protected static JTextField tempo;
+    protected JTextField p1;
+    protected JTextField p2;
+    protected JTextField desenho;
+    protected JTextField escreva;
+    protected JTextArea respostas;
+    protected JMenuBar menu;
+    protected JMenuBar barra = new JMenuBar();
+    protected JMenu conectar = new JMenu("Conectar");
+    protected JMenu limparTela = new JMenu("Limpar Tela");
+    protected JMenuItem concetarSe = new JMenuItem("Conectar-se");
+    protected JMenuItem ApagarDesenho = new JMenuItem("Apagar desenho");
+    protected Gartic gartic;
     
     public InterfaceJogador(Gartic gartic){
     	this.gartic = gartic;
     	montaTela();
+    	gartic.rodada = new Rodada(tempo);
+    	Thread threadTempo = new Thread(gartic.rodada);
+    	threadTempo.start();
     }
     private void montaTela() {
         preparaPainelPrincipal();
@@ -42,7 +45,7 @@ public class InterfaceJogador {
         p2 = new JTextField();
         jogador2 = new JLabel("Jogador2");
         rodada = new JTextField("Rodada 1");
-        tempo = new JTextField("tempo 50 seg");
+        tempo = new JTextField("Tempo 50 seg");
         desenhe = new JLabel("Desenhe isto:");
         desenho = new JTextField();
         labelareadesenho = new JLabel("Area de desenho: ");
@@ -112,18 +115,18 @@ public class InterfaceJogador {
     }
 
     private void mostraJanela() {
-        janela = new JFrame("Gartic");
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        janela.add(painel);
-        janela.setResizable(false);
-        janela.pack();
-        janela.validate();
-        janela.setJMenuBar(barra);
+        this.setTitle("Gartic");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.add(painel);
+        this.setResizable(false);
+        this.pack();
+        this.validate();
+        this.setJMenuBar(barra);
         barra.add(conectar);
         barra.add(limparTela);
         conectar.add(concetarSe);
         limparTela.add(ApagarDesenho);
-        janela.setVisible(true);
+        this.setVisible(true);
     }
 
 }
