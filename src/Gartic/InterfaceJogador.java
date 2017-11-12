@@ -1,4 +1,4 @@
-import sun.font.Font2DHandle;
+package Gartic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,12 +23,12 @@ public class InterfaceJogador {
     private JMenu limparTela = new JMenu("Limpar Tela");
     private JMenuItem concetarSe = new JMenuItem("Conectar-se");
     private JMenuItem ApagarDesenho = new JMenuItem("Apagar desenho");
-
-    public static void main(String[] args) throws InterruptedException {
-        new InterfaceJogador().montaTela();
-        Rodada rodada = new Rodada(tempo);
+    private Gartic gartic;
+    
+    public InterfaceJogador(Gartic gartic){
+    	this.gartic = gartic;
+    	montaTela();
     }
-
     private void montaTela() {
         preparaPainelPrincipal();
         preparaJlabels();
@@ -36,7 +36,7 @@ public class InterfaceJogador {
     }
 
     private void preparaJlabels() {
-        pontuacao = new JLabel("PontuaÃ§Ã£o");
+        pontuacao = new JLabel("Pontuação");
         jogador1 = new JLabel("Jogador1");
         p1 = new JTextField();
         p2 = new JTextField();
@@ -46,7 +46,7 @@ public class InterfaceJogador {
         desenhe = new JLabel("Desenhe isto:");
         desenho = new JTextField();
         labelareadesenho = new JLabel("Area de desenho: ");
-        escreva = new JTextField("Escreva sua suposiÃ§Ã£o aqui: ");
+        escreva = new JTextField("Escreva sua suposição aqui: ");
         respostas = new JTextArea("Respostas:");
 
         escreva.addMouseListener(new MouseListener() {
@@ -69,6 +69,7 @@ public class InterfaceJogador {
         desenhe.setBounds(10, 270, 200, 30);
         desenho.setBounds(10, 300, 200, 30);
         labelareadesenho.setBounds(400, 50, 200, 30);
+        gartic.painel.setBounds(300,100,450,250);
         escreva.setBounds(300, 500, 400, 30);
         respostas.setBounds(300, 380, 400, 100);
 
@@ -84,7 +85,8 @@ public class InterfaceJogador {
         labelareadesenho.setFont(new Font("SansSerif", PLAIN, 18));
         escreva.setFont(new Font("SansSerif", PLAIN, 18));
         respostas.setFont(new Font("SansSerif", PLAIN, 12));
-
+        gartic.painel.setBackground(Color.white);
+        
         painel.add(pontuacao);
         painel.add(jogador1);
         painel.add(jogador2);
@@ -97,8 +99,8 @@ public class InterfaceJogador {
         painel.add(labelareadesenho);
         painel.add(escreva);
         painel.add(respostas);
-
-
+        painel.add(gartic.painel);
+        painel.setBackground(Color.BLUE);
     }
 
     private void preparaPainelPrincipal() {
@@ -113,6 +115,7 @@ public class InterfaceJogador {
         janela = new JFrame("Gartic");
         janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         janela.add(painel);
+        janela.setResizable(false);
         janela.pack();
         janela.validate();
         janela.setJMenuBar(barra);
@@ -124,5 +127,3 @@ public class InterfaceJogador {
     }
 
 }
-
-

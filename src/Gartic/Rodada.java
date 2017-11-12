@@ -1,3 +1,5 @@
+package Gartic;
+
 import javax.swing.*;
 
 public class Rodada {
