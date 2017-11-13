@@ -19,18 +19,16 @@ public class InterfaceJogador extends JFrame {
     protected JTextArea respostas;
     protected JMenuBar menu;
     protected JMenuBar barra = new JMenuBar();
-    protected JMenu conectar = new JMenu("Conectar");
+    protected JMenu conexoes = new JMenu("Conexoes");
     protected JMenu limparTela = new JMenu("Limpar Tela");
-    protected JMenuItem concetarSe = new JMenuItem("Conectar-se");
+    protected JMenuItem conectarSe = new JMenuItem("Conectar-se");
+    protected JMenuItem desconectar = new JMenuItem("Desconectar");
     protected JMenuItem ApagarDesenho = new JMenuItem("Apagar desenho");
+    protected JMenuItem iniciarPartida = new JMenuItem("Iniciar Partida");
     protected Gartic gartic;
-    
     public InterfaceJogador(Gartic gartic){
     	this.gartic = gartic;
     	montaTela();
-    	gartic.rodada = new Rodada(tempo);
-    	Thread threadTempo = new Thread(gartic.rodada);
-    	threadTempo.start();
     }
     private void montaTela() {
         preparaPainelPrincipal();
@@ -122,9 +120,11 @@ public class InterfaceJogador extends JFrame {
         this.pack();
         this.validate();
         this.setJMenuBar(barra);
-        barra.add(conectar);
+        barra.add(conexoes);
         barra.add(limparTela);
-        conectar.add(concetarSe);
+        conexoes.add(conectarSe);
+        conexoes.add(desconectar);
+        conexoes.add(iniciarPartida);
         limparTela.add(ApagarDesenho);
         this.setVisible(true);
     }

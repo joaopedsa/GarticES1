@@ -19,8 +19,9 @@ public class AtorRede implements OuvidorProxy {
 	
 	private Proxy proxy;
 	
-	boolean desenha;
+	boolean desenha = false;
 	
+	boolean iniciou = false;
 	public AtorRede(AtorJogador atorJogador){
 		super();
 		this.atorJogador = atorJogador;
@@ -66,6 +67,7 @@ public class AtorRede implements OuvidorProxy {
 	@Override
 	public void iniciarNovaPartida(Integer posicao) {
 		System.out.println(posicao);
+		iniciou = true;
 		if (posicao == 1){
 			desenha = true;
 		}else if (posicao == 2){
@@ -138,5 +140,7 @@ public class AtorRede implements OuvidorProxy {
 	public boolean desenha() {
 		return desenha;
 	}
-
+	public boolean iniciou(){
+		return iniciou;
+	}
 }
