@@ -66,15 +66,7 @@ public class AtorRede implements OuvidorProxy {
 	
 	@Override
 	public void iniciarNovaPartida(Integer posicao) {
-		System.out.println(posicao);
-		iniciou = true;
-		if (posicao == 1){
-			desenha = true;
-		}else if (posicao == 2){
-			desenha = false;
-		}
-		
-
+		atorJogador.iniciarPartida(posicao);
 	}
 	
 	public void enviarJogada(Gartic gartic){
@@ -128,8 +120,8 @@ public class AtorRede implements OuvidorProxy {
 	}
 
 	public String obterNomeAdversario() {
-		String nome = "";
-		if (desenha){
+		String nome;
+		if (atorJogador.gartic.informarDesenha()){
 			nome = proxy.obterNomeAdversario(2);
 		}else{
 			nome = proxy.obterNomeAdversario(1);
@@ -137,9 +129,6 @@ public class AtorRede implements OuvidorProxy {
 		return nome;
 	}
 
-	public boolean desenha() {
-		return desenha;
-	}
 	public boolean iniciou(){
 		return iniciou;
 	}

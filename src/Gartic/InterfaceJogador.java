@@ -128,5 +128,4 @@ public class InterfaceJogador extends JFrame {
         limparTela.add(ApagarDesenho);
         this.setVisible(true);
     }
-
 }
