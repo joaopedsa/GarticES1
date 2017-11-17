@@ -8,32 +8,36 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import br.ufsc.inf.leobr.cliente.Jogada;
 import rede.AtorRede;
+import rede.Mensagem;
 
-public class AtorJogador {
+public class AtorJogador{
 	protected AtorRede atorRede;
 	public Gartic gartic;
+	protected OuveClique clique;
 	InterfaceJogador telaJogo;
 	public AtorJogador(){
 	super();
 	atorRede = new AtorRede(this);
 	gartic = new Gartic();
+	clique = new OuveClique(gartic.imagem,gartic.painel);
 	}
 	public void go(){
 		telaJogo.jogador1.setText(gartic.jogador1.nome);
 		telaJogo.jogador2.setText(atorRede.obterNomeAdversario());
 		telaJogo.repaint();
-		gartic.rodada = new Rodada(telaJogo.tempo);
-    	Thread threadTempo = new Thread(gartic.rodada);
-    	threadTempo.start();
+		gartic.rodada = new Rodada(this);
+    	gartic.rodada.start();
 	}
 	public void iniciaTela(){
-		ConexaoListener conexao = new ConexaoListener();
+		Interacoes interacao = new Interacoes();
 		telaJogo = new InterfaceJogador(gartic);
-		telaJogo.conectarSe.addActionListener(conexao);
-		telaJogo.ApagarDesenho.addActionListener(conexao);
-		telaJogo.desconectar.addActionListener(conexao);
-		telaJogo.iniciarPartida.addActionListener(conexao);
+		telaJogo.conectarSe.addActionListener(interacao);
+		telaJogo.ApagarDesenho.addActionListener(interacao);
+		telaJogo.desconectar.addActionListener(interacao);
+		telaJogo.iniciarPartida.addActionListener(interacao);
+		telaJogo.enviar.addActionListener(interacao);
 	}
 	
 	public JFrame getFrame(){
@@ -59,32 +63,44 @@ public class AtorJogador {
 		}
 		go();
 	}
+	public void enviarjogada(){
+		if(gartic.jogador1.desenha){
+		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogador1));
+		}
+	}
 	public void habilitarDesenho(){
-		gartic.painel.addMouseMotionListener(gartic.clique);
+		gartic.painel.addMouseMotionListener(clique);
 	}
 	public void desabilitarDesenho(){
-		gartic.painel.removeMouseMotionListener(gartic.clique);
+		gartic.painel.removeMouseMotionListener(clique);
 	}
-	public void receberMensagemRede(Gartic gartic) {
-		this.gartic = gartic;
+	
+	public void receberJogada(Jogada jogada) {
+		Mensagem msg = (Mensagem)jogada;
+		gartic.painel.receberDesenho(msg.getImagemGartic()); 
+		gartic.painel.repaint();
+		gartic.rodada.tempo = 0;
 	}
 	public static void main(String args[]){
 		new AtorJogador().iniciaTela();
 	}
-	public class ConexaoListener implements ActionListener{
+	public class Interacoes implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JMenuItem item = (JMenuItem) e.getSource();
-			if(item == telaJogo.conectarSe) {
+			String command = e.getActionCommand();
+			if(command == telaJogo.conectarSe.getActionCommand()) {
 				conectar();
-			} else if (item == telaJogo.desconectar){
+			} else if (command == telaJogo.desconectar.getActionCommand()){
 				desconectar();
-			} else if (item == telaJogo.ApagarDesenho) {
+			} else if (command == telaJogo.ApagarDesenho.getActionCommand()) {
 				gartic.imagem.limpaArray();
 				gartic.painel.repaint();
-			} else if (item == telaJogo.iniciarPartida)	{
+			} else if (command == telaJogo.iniciarPartida.getActionCommand())	{
 				atorRede.iniciarPartidaRede();
+			} else if (command == telaJogo.enviar.getActionCommand()) {
+				if(gartic.jogador1.desenha)
+					gartic.rodada.tempo = 0;
 			}
 		}
 	}

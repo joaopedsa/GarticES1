@@ -1,25 +1,42 @@
 package Gartic;
 
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
-public class Rodada implements Runnable {
-JTextField tempo;
-    public Rodada(JTextField tempo) {
-        this.tempo = tempo;
+import br.ufsc.inf.leobr.cliente.Jogada;
+
+public class Rodada extends Thread {
+JTextField textoTempo;
+int tentativas;
+String palavraParaDesenhar;
+int pontuacaoDesenha;
+int pontuacaoAdivinha;
+int tempo = 0;
+AtorJogador atorJogador;
+	public Rodada(AtorJogador atorJogador) {
+		this.atorJogador = atorJogador;
+		this.textoTempo = atorJogador.telaJogo.tempo;
     }
     public void respostas(JTextArea respostas) {
-        respostas.setText("Respostas:");
+        respostas.setText("Escreva Aqui!");
+    }
+    public void tentarResposta(String palavraDigitada, JTextArea respostas){
+    	respostas.append(palavraDigitada+"\n");
+    }
+    public void encerrarRodada(){
+    
+    }
+    public int getTentativa(){
+    	return tentativas;
     }
 	@Override
 	public void run() {
-		for (int i = 50; i >= 0 ; i--) {
+		for (tempo = 50; tempo >= 0 ; tempo--) {
             try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {}
-            tempo.setText("Tempo "+i+" seg");
+            textoTempo.setText("Tempo "+tempo+" seg");
         }
-		
+		atorJogador.enviarjogada();
 	}
 }

@@ -1,7 +1,9 @@
 package Gartic;
 
 import java.awt.Graphics;
-public class Ponto {
+
+import br.ufsc.inf.leobr.cliente.Jogada;
+public class Ponto implements Jogada{
 protected int x;
 protected int y;
 	Ponto(int x , int y){

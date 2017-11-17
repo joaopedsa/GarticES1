@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import Gartic.AtorJogador;
 import Gartic.Gartic;
+import Gartic.ImagemGartic;
 import br.ufsc.inf.leobr.cliente.Jogada;
 import br.ufsc.inf.leobr.cliente.OuvidorProxy;
 import br.ufsc.inf.leobr.cliente.Proxy;
@@ -52,8 +53,6 @@ public class AtorRede implements OuvidorProxy {
 	
 	/**
 	 * Inicia uma partida entre cliente e servidor.
-	 * Atravï¿½s dessa partida os participantes do chat
-	 * irï¿½o trocar mensagens.
 	 */
 	public void iniciarPartidaRede(){
 		try {
@@ -69,11 +68,9 @@ public class AtorRede implements OuvidorProxy {
 		atorJogador.iniciarPartida(posicao);
 	}
 	
-	public void enviarJogada(Gartic gartic){
-		
-		Mensagem jogada = new Mensagem(gartic);
+	public void enviaJogada(Mensagem msg){
 		try {
-			proxy.enviaJogada(jogada);
+			proxy.enviaJogada(msg);
 		} catch (NaoJogandoException e) {
 			JOptionPane.showMessageDialog(atorJogador.getFrame(), e.getMessage());
 			e.printStackTrace();
@@ -82,8 +79,7 @@ public class AtorRede implements OuvidorProxy {
 	
 	@Override
 	public void receberJogada(Jogada jogada) {
-		Mensagem msg = (Mensagem) jogada;
-		atorJogador.receberMensagemRede(msg.getMensagem());
+		atorJogador.receberJogada(jogada);
 	}
 	
 	public void desconectar(){
@@ -103,13 +99,13 @@ public class AtorRede implements OuvidorProxy {
 
 	@Override
 	public void tratarConexaoPerdida() {
-		JOptionPane.showMessageDialog(atorJogador.getFrame(), "A conexï¿½o com o servidor foi perdida!");
+		JOptionPane.showMessageDialog(atorJogador.getFrame(), "A conexão com o servidor foi perdida!");
 
 	}
 
 	@Override
 	public void tratarPartidaNaoIniciada(String message) {
-		JOptionPane.showMessageDialog(atorJogador.getFrame(), "Nï¿½o foi possï¿½vel iniciar a conversa");
+		JOptionPane.showMessageDialog(atorJogador.getFrame(), "Não foi Possivel iniciar Partida");
 
 	}
 	
@@ -132,4 +128,5 @@ public class AtorRede implements OuvidorProxy {
 	public boolean iniciou(){
 		return iniciou;
 	}
+
 }

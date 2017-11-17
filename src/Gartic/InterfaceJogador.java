@@ -1,12 +1,15 @@
 package Gartic;
 
 import javax.swing.*;
+
+import br.ufsc.inf.leobr.cliente.Jogada;
+
 import java.awt.*;
 import java.awt.event.*;
 
 import static java.awt.Font.PLAIN;
 
-public class InterfaceJogador extends JFrame {
+public class InterfaceJogador extends JFrame{
     protected JFrame janela;
     protected JPanel painel, painel2;
     protected JLabel pontuacao, jogador1, jogador2, desenhe, labelareadesenho;
@@ -19,13 +22,14 @@ public class InterfaceJogador extends JFrame {
     protected JTextArea respostas;
     protected JMenuBar menu;
     protected JMenuBar barra = new JMenuBar();
-    protected JMenu conexoes = new JMenu("Conexoes");
+    protected JMenu opcoes = new JMenu("Opções");
     protected JMenu limparTela = new JMenu("Limpar Tela");
     protected JMenuItem conectarSe = new JMenuItem("Conectar-se");
     protected JMenuItem desconectar = new JMenuItem("Desconectar");
     protected JMenuItem ApagarDesenho = new JMenuItem("Apagar desenho");
     protected JMenuItem iniciarPartida = new JMenuItem("Iniciar Partida");
     protected Gartic gartic;
+    protected JButton enviar = new JButton("Enviar");
     public InterfaceJogador(Gartic gartic){
     	this.gartic = gartic;
     	montaTela();
@@ -72,6 +76,7 @@ public class InterfaceJogador extends JFrame {
         labelareadesenho.setBounds(400, 50, 200, 30);
         gartic.painel.setBounds(300,100,450,250);
         escreva.setBounds(300, 500, 400, 30);
+        enviar.setBounds(710, 490, 70, 40);
         respostas.setBounds(300, 380, 400, 100);
 
         pontuacao.setFont(new Font("SansSerif", Font.BOLD, 24));
@@ -99,6 +104,7 @@ public class InterfaceJogador extends JFrame {
         painel.add(desenho);
         painel.add(labelareadesenho);
         painel.add(escreva);
+        painel.add(enviar);
         painel.add(respostas);
         painel.add(gartic.painel);
         painel.setBackground(Color.BLUE);
@@ -120,11 +126,11 @@ public class InterfaceJogador extends JFrame {
         this.pack();
         this.validate();
         this.setJMenuBar(barra);
-        barra.add(conexoes);
+        barra.add(opcoes);
         barra.add(limparTela);
-        conexoes.add(conectarSe);
-        conexoes.add(desconectar);
-        conexoes.add(iniciarPartida);
+        opcoes.add(conectarSe);
+        opcoes.add(desconectar);
+        opcoes.add(iniciarPartida);
         limparTela.add(ApagarDesenho);
         this.setVisible(true);
     }

@@ -8,12 +8,13 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Gartic{
-	protected ImagemGartic imagem = new ImagemGartic();
-	protected Reprodutor painel = new Reprodutor(imagem);
-	protected OuveClique clique = new OuveClique(imagem,painel);
-	public Jogador jogador1 = new Jogador();
-	protected Jogador jogador2 = new Jogador();
+import br.ufsc.inf.leobr.cliente.Jogada;
+
+public class Gartic implements Jogada{
+	protected ImagemGartic imagem;
+	protected Reprodutor painel;
+	public Jogador jogador1;
+	protected Jogador jogador2;
 	protected Rodada rodada;
 	protected String palavraDesenhada;
 	protected boolean conectados;
@@ -22,7 +23,10 @@ public class Gartic{
 	protected boolean vencedor;
 	protected int tipoJogada;
 	public Gartic(){
-		
+		imagem = new ImagemGartic();
+		painel = new Reprodutor(imagem);;
+		jogador1 = new Jogador();
+		jogador2 = new Jogador();
 	}
 	public boolean verificarAtingiuPontuacao(){
 		return true;
