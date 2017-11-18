@@ -7,8 +7,9 @@ String nome;
 int pontuacao;
 boolean desenha;
 boolean vencedor;
-String tentativa;
-String palavra;
+String tentativa = "";
+String palavra = "";
+boolean acertou = false;
 
 public String getTentativas(){
 	return tentativa;

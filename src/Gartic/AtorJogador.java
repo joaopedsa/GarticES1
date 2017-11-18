@@ -55,7 +55,8 @@ public class AtorJogador{
 			gartic.jogador1.desenha = true;
 			habilitarDesenho();
 			try {
-				telaJogo.desenho.setText(gartic.definirPalavraJogadorDesenha());
+				gartic.jogador1.palavra = gartic.definirPalavraJogadorDesenha();
+				telaJogo.desenho.setText(gartic.jogador1.palavra);
 			} catch (IOException e){}
 		} else {
 			gartic.jogador2.desenha = false;
@@ -65,12 +66,14 @@ public class AtorJogador{
 	public void enviarJogada(){
 		if(gartic.jogador1.desenha){
 		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogador1));
-		gartic.rodada.tempo = 0;
-		telaJogo.enviar.setVisible(false);
+		telaJogo.enviar.setEnabled(false);
+		telaJogo.tempo.setText("Espere o Adversário");
+		desabilitarDesenho();
 		}else{
 		gartic.jogador1.tentativa = telaJogo.escreva.getText();
 		telaJogo.respostas.append(gartic.jogador1.getTentativas()+"\n");
-		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogador1));	
+		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogador1));
+		gartic.rodada.tentativas++;
 		}
 	}
 	public void habilitarDesenho(){
@@ -84,12 +87,13 @@ public class AtorJogador{
 		Mensagem msg = (Mensagem)jogada;
 		if(!gartic.jogador1.desenha){
 			gartic.painel.receberDesenho(msg.getImagemGartic()); 
-			gartic.painel.repaint();
+			gartic.jogador1.palavra = msg.getJogador().palavra;
 			gartic.rodada.tempo = 0;
-			telaJogo.respostas.setText("");
+			gartic.painel.repaint();
 		}else if(gartic.jogador1.desenha){
 			gartic.jogador2 = msg.getJogador();
 			telaJogo.respostas.append(gartic.jogador2.tentativa+"\n");
+			gartic.rodada.tentativas++;
 		}
 	}
 	public static void main(String args[]){
@@ -112,10 +116,14 @@ public class AtorJogador{
 			} else if (command == telaJogo.enviar.getActionCommand()) {
 				if(gartic.jogador1.desenha){
 					gartic.rodada.tempo = 0;
-				}else{
+				} else if(gartic.rodada.tentativas > 3){
+					gartic.rodada.tempo = 0;
+					enviarJogada();
+				} else{
 					enviarJogada();
 				}
-			}
+					
 		}
 	}
+}
 }

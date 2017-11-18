@@ -47,6 +47,8 @@ public class Gartic{
 	        return palavra;
 	    }
 	public void definirJogadorQueDesenha(){
+		jogador1.desenha = !jogador1.desenha;
+		jogador2.desenha = !jogador2.desenha;
 	}
 	public ImagemGartic enviarDesenho(){
 		return imagem;

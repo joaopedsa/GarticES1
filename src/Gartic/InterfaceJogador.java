@@ -50,7 +50,7 @@ public class InterfaceJogador extends JFrame{
         desenho = new JTextField();
         labelareadesenho = new JLabel("Area de desenho: ");
         escreva = new JTextField("Escreva sua suposição aqui: ");
-        respostas = new JTextArea("Respostas:");
+        respostas = new JTextArea("");
 
         escreva.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
@@ -90,6 +90,14 @@ public class InterfaceJogador extends JFrame{
         escreva.setFont(new Font("SansSerif", PLAIN, 18));
         respostas.setFont(new Font("SansSerif", PLAIN, 12));
         gartic.painel.setBackground(Color.white);
+        
+        respostas.setEditable(false);
+        tempo.setEnabled(false);
+        rodada.setEnabled(false);
+        p1.setEnabled(false);
+        p2.setEnabled(false);
+        desenho.setEnabled(false);
+        
         
         painel.add(pontuacao);
         painel.add(jogador1);
