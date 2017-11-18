@@ -4,7 +4,6 @@ import java.awt.*;
 
 import javax.swing.*;
 
-import br.ufsc.inf.leobr.cliente.Jogada;
 
 public class Reprodutor extends JPanel{
 	protected ImagemGartic imagem;

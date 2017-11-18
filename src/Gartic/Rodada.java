@@ -3,7 +3,6 @@ package Gartic;
 
 import javax.swing.*;
 
-import br.ufsc.inf.leobr.cliente.Jogada;
 
 public class Rodada extends Thread {
 JTextField textoTempo;
@@ -37,6 +36,6 @@ AtorJogador atorJogador;
 			} catch (InterruptedException e) {}
             textoTempo.setText("Tempo "+tempo+" seg");
         }
-		atorJogador.enviarjogada();
+		atorJogador.enviarJogada();
 	}
 }

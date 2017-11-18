@@ -3,8 +3,6 @@ package rede;
 import javax.swing.JOptionPane;
 
 import Gartic.AtorJogador;
-import Gartic.Gartic;
-import Gartic.ImagemGartic;
 import br.ufsc.inf.leobr.cliente.Jogada;
 import br.ufsc.inf.leobr.cliente.OuvidorProxy;
 import br.ufsc.inf.leobr.cliente.Proxy;

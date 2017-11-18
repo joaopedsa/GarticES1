@@ -2,8 +2,6 @@ package Gartic;
 
 import javax.swing.*;
 
-import br.ufsc.inf.leobr.cliente.Jogada;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -67,14 +65,14 @@ public class InterfaceJogador extends JFrame{
         pontuacao.setBounds(10, 10, 140, 30);
         jogador1.setBounds(10, 40, 120, 30);
         jogador2.setBounds(10, 70, 120, 30);
-        rodada.setBounds(300, 10, 180, 30);
-        tempo.setBounds(520, 10, 180, 30);
+        rodada.setBounds(10, 140, 180, 30);
+        tempo.setBounds(10, 190, 180, 30);
         p1.setBounds(100, 45, 80, 25);
         p2.setBounds(100, 70, 80, 25);
         desenhe.setBounds(10, 270, 200, 30);
         desenho.setBounds(10, 300, 200, 30);
-        labelareadesenho.setBounds(400, 50, 200, 30);
-        gartic.painel.setBounds(300,100,450,250);
+        labelareadesenho.setBounds(300, 10, 200, 30);
+        gartic.painel.setBounds(300,50,450,300);
         escreva.setBounds(300, 500, 400, 30);
         enviar.setBounds(710, 490, 70, 40);
         respostas.setBounds(300, 380, 400, 100);
@@ -107,7 +105,7 @@ public class InterfaceJogador extends JFrame{
         painel.add(enviar);
         painel.add(respostas);
         painel.add(gartic.painel);
-        painel.setBackground(Color.BLUE);
+        painel.setBackground(new Color(204,242,255));
     }
 
     private void preparaPainelPrincipal() {

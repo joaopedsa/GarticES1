@@ -2,15 +2,12 @@ package Gartic;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Random;
 
-import br.ufsc.inf.leobr.cliente.Jogada;
-
-public class Gartic implements Jogada{
+public class Gartic{
 	protected ImagemGartic imagem;
 	protected Reprodutor painel;
 	public Jogador jogador1;
