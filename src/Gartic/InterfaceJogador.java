@@ -10,9 +10,9 @@ import static java.awt.Font.PLAIN;
 public class InterfaceJogador extends JFrame{
     protected JFrame janela;
     protected JPanel painel, painel2;
-    protected JLabel pontuacao, jogadorLocal,oponente, desenhe, labelareadesenho;
-    protected JTextField rodada;
-    protected static JTextField tempo;
+    protected JLabel pontuacao, jogadorLocal,oponente, desenhe, labelareadesenho ,labelAreaRespostas;
+    protected JLabel rodada;
+    protected JLabel tempo;
     protected JLabel pontuacaoJogadorLocal;
     protected JLabel pontuacaoOponente;
     protected JTextField desenho;
@@ -40,18 +40,19 @@ public class InterfaceJogador extends JFrame{
 
     private void preparaJlabels() {
         pontuacao = new JLabel("Pontuação");
-        jogadorLocal = new JLabel("jogadorLocal");
+        jogadorLocal = new JLabel("jogadorLocal :");
         pontuacaoJogadorLocal = new JLabel("0");
         pontuacaoOponente = new JLabel("0");
-        oponente = new JLabel("oponente");
-        rodada = new JTextField("Rodada 1");
-        tempo = new JTextField("Tempo 50 seg");
+        oponente = new JLabel("oponente :");
+        rodada = new JLabel("Rodada 1");
+        tempo = new JLabel("Tempo 50 seg");
         desenhe = new JLabel("Desenhe isto:");
         desenho = new JTextField();
         labelareadesenho = new JLabel("Area de desenho: ");
         escreva = new JTextField("Escreva sua suposição aqui: ");
         respostas = new JTextArea("");
-
+        labelAreaRespostas = new JLabel("Respostas : ");
+        
         escreva.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
                 escreva.setText("");
@@ -66,13 +67,14 @@ public class InterfaceJogador extends JFrame{
         jogadorLocal.setBounds(10, 40, 120, 30);
         oponente.setBounds(10, 70, 120, 30);
         rodada.setBounds(10, 140, 180, 30);
-        tempo.setBounds(10, 190, 180, 30);
+        tempo.setBounds(10, 170, 180, 30);
         pontuacaoJogadorLocal.setBounds(125, 45, 80, 25);
         pontuacaoOponente.setBounds(125, 70, 80, 25);
         desenhe.setBounds(10, 270, 200, 30);
         desenho.setBounds(10, 300, 200, 30);
         labelareadesenho.setBounds(300, 10, 200, 30);
         gartic.painel.setBounds(300,50,450,300);
+        labelAreaRespostas.setBounds(300,360,100,15);
         escreva.setBounds(300, 500, 400, 30);
         enviar.setBounds(710, 490, 70, 40);
         respostas.setBounds(300, 380, 400, 100);
@@ -80,8 +82,8 @@ public class InterfaceJogador extends JFrame{
         pontuacao.setFont(new Font("SansSerif", Font.BOLD, 24));
         jogadorLocal.setFont(new Font("SansSerif", PLAIN, 18));
         oponente.setFont(new Font("SansSerif", PLAIN, 18));
-        rodada.setFont(new Font("SansSerif", PLAIN, 18));
-        tempo.setFont(new Font("SansSerif", PLAIN, 18));
+        rodada.setFont(new Font("SansSerif",Font.BOLD,22));
+        tempo.setFont(new Font("SansSerif", Font.BOLD, 18));
         pontuacaoJogadorLocal.setFont(new Font("SansSerif", PLAIN, 18));
         pontuacaoOponente.setFont(new Font("SansSerif", PLAIN, 18));
         desenhe.setFont(new Font("SansSerif", PLAIN, 18));
@@ -91,15 +93,16 @@ public class InterfaceJogador extends JFrame{
         respostas.setFont(new Font("SansSerif", PLAIN, 12));
         gartic.painel.setBackground(Color.white);
         
-        respostas.setEditable(false);
-        tempo.setEnabled(false);
-        rodada.setEnabled(false);
-        pontuacaoJogadorLocal.setEnabled(false);
-        pontuacaoOponente.setEnabled(false);
-        desenho.setEnabled(false);
+        rodada.setForeground(Color.BLACK);
+        tempo.setForeground(Color.BLACK);
+        pontuacaoJogadorLocal.setForeground(Color.BLACK);
+        pontuacaoOponente.setForeground(Color.BLACK);
         
+        desenho.setEnabled(false);
+        respostas.setEditable(false);
         
         painel.add(pontuacao);
+        painel.add(labelAreaRespostas);
         painel.add(jogadorLocal);
         painel.add(oponente);
         painel.add(rodada);

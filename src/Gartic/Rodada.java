@@ -5,7 +5,7 @@ import javax.swing.*;
 
 
 public class Rodada implements Runnable {
-JTextField textoTempo;
+JLabel textoTempo;
 int tentativas = 0;
 int tempo = 0;
 int numeroRodada = 1;
@@ -53,9 +53,11 @@ AtorJogador atorJogador;
 			}
 			if(atorJogador.gartic.jogadorLocal.desenha){
 				atorJogador.enviarJogada();
-				atorJogador.telaJogo.tempo.setText("Espere o Adversário");
+				atorJogador.telaJogo.tempo.setText("");
+				JOptionPane.showMessageDialog(null, "Aguarde a Jogada do Adversário!");
 			}else{
-				atorJogador.telaJogo.tempo.setText("Sua Vez!");
+				atorJogador.telaJogo.tempo.setText("");
+				JOptionPane.showMessageDialog(null, "Sua vez de Adivinhar!");
 			}
 	}
 }

@@ -84,6 +84,7 @@ public class AtorJogador{
 		desabilitarDesenho();
 		}else if (!gartic.jogadorLocal.desenha){
 		gartic.jogadorLocal.tentativa = telaJogo.escreva.getText();
+		telaJogo.escreva.setText("");
 		telaJogo.respostas.append(gartic.jogadorLocal.getTentativas()+"\n");
 		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogadorLocal));
 		gartic.rodada.tentativas++;
