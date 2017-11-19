@@ -1,4 +1,4 @@
-Abacaxi
+abacaxi
 banana
 formiga
 elefante
@@ -19,3 +19,19 @@ televisao
 pao
 leite
 lampada
+vaca
+boi
+cavalo
+tigre
+mel
+feijao
+arroz
+lata
+carne
+galinha
+ovo
+espingarda
+pistola
+carro
+caminhao
+moto

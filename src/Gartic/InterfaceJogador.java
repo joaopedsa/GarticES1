@@ -10,11 +10,11 @@ import static java.awt.Font.PLAIN;
 public class InterfaceJogador extends JFrame{
     protected JFrame janela;
     protected JPanel painel, painel2;
-    protected JLabel pontuacao, jogador1, jogador2, desenhe, labelareadesenho;
+    protected JLabel pontuacao, jogadorLocal,oponente, desenhe, labelareadesenho;
     protected JTextField rodada;
     protected static JTextField tempo;
-    protected JTextField p1;
-    protected JTextField p2;
+    protected JLabel pontuacaoJogadorLocal;
+    protected JLabel pontuacaoOponente;
     protected JTextField desenho;
     protected JTextField escreva;
     protected JTextArea respostas;
@@ -40,10 +40,10 @@ public class InterfaceJogador extends JFrame{
 
     private void preparaJlabels() {
         pontuacao = new JLabel("Pontuação");
-        jogador1 = new JLabel("Jogador1");
-        p1 = new JTextField();
-        p2 = new JTextField();
-        jogador2 = new JLabel("Jogador2");
+        jogadorLocal = new JLabel("jogadorLocal");
+        pontuacaoJogadorLocal = new JLabel("0");
+        pontuacaoOponente = new JLabel("0");
+        oponente = new JLabel("oponente");
         rodada = new JTextField("Rodada 1");
         tempo = new JTextField("Tempo 50 seg");
         desenhe = new JLabel("Desenhe isto:");
@@ -63,12 +63,12 @@ public class InterfaceJogador extends JFrame{
 
 
         pontuacao.setBounds(10, 10, 140, 30);
-        jogador1.setBounds(10, 40, 120, 30);
-        jogador2.setBounds(10, 70, 120, 30);
+        jogadorLocal.setBounds(10, 40, 120, 30);
+        oponente.setBounds(10, 70, 120, 30);
         rodada.setBounds(10, 140, 180, 30);
         tempo.setBounds(10, 190, 180, 30);
-        p1.setBounds(100, 45, 80, 25);
-        p2.setBounds(100, 70, 80, 25);
+        pontuacaoJogadorLocal.setBounds(125, 45, 80, 25);
+        pontuacaoOponente.setBounds(125, 70, 80, 25);
         desenhe.setBounds(10, 270, 200, 30);
         desenho.setBounds(10, 300, 200, 30);
         labelareadesenho.setBounds(300, 10, 200, 30);
@@ -78,12 +78,12 @@ public class InterfaceJogador extends JFrame{
         respostas.setBounds(300, 380, 400, 100);
 
         pontuacao.setFont(new Font("SansSerif", Font.BOLD, 24));
-        jogador1.setFont(new Font("SansSerif", PLAIN, 18));
-        jogador2.setFont(new Font("SansSerif", PLAIN, 18));
+        jogadorLocal.setFont(new Font("SansSerif", PLAIN, 18));
+        oponente.setFont(new Font("SansSerif", PLAIN, 18));
         rodada.setFont(new Font("SansSerif", PLAIN, 18));
         tempo.setFont(new Font("SansSerif", PLAIN, 18));
-        p1.setFont(new Font("SansSerif", PLAIN, 18));
-        p2.setFont(new Font("SansSerif", PLAIN, 18));
+        pontuacaoJogadorLocal.setFont(new Font("SansSerif", PLAIN, 18));
+        pontuacaoOponente.setFont(new Font("SansSerif", PLAIN, 18));
         desenhe.setFont(new Font("SansSerif", PLAIN, 18));
         desenho.setFont(new Font("SansSerif", PLAIN, 18));
         labelareadesenho.setFont(new Font("SansSerif", PLAIN, 18));
@@ -94,18 +94,18 @@ public class InterfaceJogador extends JFrame{
         respostas.setEditable(false);
         tempo.setEnabled(false);
         rodada.setEnabled(false);
-        p1.setEnabled(false);
-        p2.setEnabled(false);
+        pontuacaoJogadorLocal.setEnabled(false);
+        pontuacaoOponente.setEnabled(false);
         desenho.setEnabled(false);
         
         
         painel.add(pontuacao);
-        painel.add(jogador1);
-        painel.add(jogador2);
+        painel.add(jogadorLocal);
+        painel.add(oponente);
         painel.add(rodada);
         painel.add(tempo);
-        painel.add(p1);
-        painel.add(p2);
+        painel.add(pontuacaoJogadorLocal);
+        painel.add(pontuacaoOponente);
         painel.add(desenhe);
         painel.add(desenho);
         painel.add(labelareadesenho);

@@ -10,8 +10,8 @@ import java.util.Random;
 public class Gartic{
 	protected ImagemGartic imagem;
 	protected Reprodutor painel;
-	public Jogador jogador1;
-	protected Jogador jogador2;
+	protected Jogador jogadorLocal;
+	protected Jogador oponente;
 	protected Rodada rodada;
 	protected String palavraDesenhada;
 	protected boolean conectados;
@@ -22,11 +22,12 @@ public class Gartic{
 	public Gartic(){
 		imagem = new ImagemGartic();
 		painel = new Reprodutor(imagem);;
-		jogador1 = new Jogador();
-		jogador2 = new Jogador();
+		jogadorLocal = new Jogador();
+		oponente = new Jogador();
 	}
 	public boolean verificarAtingiuPontuacao(){
-		return true;
+		vencedor = (jogadorLocal.pontuacao >= 160) || (oponente.pontuacao >= 160);
+		return vencedor;
 	}
 	public String definirPalavraJogadorDesenha() throws IOException{
 	        String palavra = null;
@@ -42,13 +43,18 @@ public class Gartic{
 
 	        Random radom  = new Random();
 	        int aleatorio = 0;
-	        aleatorio = radom.nextInt(21);
+	        aleatorio = radom.nextInt(38);
 	        palavra = lines.get(aleatorio);
 	        return palavra;
 	    }
 	public void definirJogadorQueDesenha(){
-		jogador1.desenha = !jogador1.desenha;
-		jogador2.desenha = !jogador2.desenha;
+		if(jogadorLocal.desenha){
+			jogadorLocal.desenha = false;
+			oponente.desenha = true;
+		}else{
+			jogadorLocal.desenha = true;
+			oponente.desenha = false;
+		}
 	}
 	public ImagemGartic enviarDesenho(){
 		return imagem;
@@ -64,14 +70,63 @@ public class Gartic{
 	public int getTipoJogada(){
 		return tipoJogada;
 	}
-	public void encerrarRodada(){
-	}
-	public boolean checarSeGanhou(){
-		return true;
+	public void aplicarPontuacao(){
+		if((jogadorLocal.desenha && jogadorLocal.acertou)){
+			jogadorLocal.pontuacao = jogadorLocal.pontuacao + 60;
+			switch(rodada.tentativas){
+			case 1:
+				oponente.pontuacao = oponente.pontuacao + 80;
+				break;
+			case 2:
+				oponente.pontuacao = oponente.pontuacao + 60;
+				break;
+			case 3:
+				oponente.pontuacao = oponente.pontuacao + 40;
+				break;
+			case 4:
+				oponente.pontuacao = oponente.pontuacao + 20;
+				break;
+			case 5:
+				oponente.pontuacao = oponente.pontuacao + 10;
+				break;
+			}
+		}else if(!jogadorLocal.desenha && jogadorLocal.acertou) {
+			switch(rodada.tentativas){
+			case 1:
+				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 80;
+				break;
+			case 2:
+				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 60;
+				break;
+			case 3:
+				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 40;
+				break;
+			case 4:
+				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 20;
+				break;
+			case 5:
+				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 10;
+				break;
+			}
+			oponente.pontuacao = oponente.pontuacao + 60;
+		}
 	}
 	public void finalizarPartida(){
 	}
 	public void iniciarNovaRodada(){
+		definirJogadorQueDesenha();
+		imagem.limpaArray();
+		painel.receberDesenho(imagem);
+		painel.repaint();
+		jogadorLocal.acertou = false;
+		oponente.acertou = false;
+		if(jogadorLocal.desenha){
+			try{
+			jogadorLocal.palavra = definirPalavraJogadorDesenha();
+			}catch(Exception e){}
+		}
+		Thread thread = new Thread(rodada);
+		thread.start();
 	}
 	public void resetar(){
 	}
@@ -79,6 +134,6 @@ public class Gartic{
 		return partidaEmAndamento;
 	}
 	public boolean informarDesenha(){
-		return jogador1.desenha;
+		return jogadorLocal.desenha;
 	}
 }

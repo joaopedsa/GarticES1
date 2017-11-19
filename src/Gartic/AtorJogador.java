@@ -23,11 +23,12 @@ public class AtorJogador{
 	clique = new OuveClique(gartic.imagem,gartic.painel);
 	}
 	public void go(){
-		telaJogo.jogador1.setText(gartic.jogador1.nome);
-		telaJogo.jogador2.setText(atorRede.obterNomeAdversario());
+		telaJogo.jogadorLocal.setText(gartic.jogadorLocal.nome+" :");
+		telaJogo.oponente.setText(atorRede.obterNomeAdversario()+" :");
 		telaJogo.repaint();
 		gartic.rodada = new Rodada(this);
-    	gartic.rodada.start();
+		Thread thread = new Thread(gartic.rodada);
+		thread.start();
 	}
 	public void iniciaTela(){
 		Interacoes interacao = new Interacoes();
@@ -43,8 +44,8 @@ public class AtorJogador{
 		return telaJogo;
 	}
 	public void conectar(){
-		gartic.jogador1.nome = JOptionPane.showInputDialog("Nome do Jogador");
-		atorRede.conectar(gartic.jogador1.nome, "localhost");
+		gartic.jogadorLocal.nome = JOptionPane.showInputDialog("Nome do Jogador");
+		atorRede.conectar(gartic.jogadorLocal.nome, "localhost");
 	}
 	public void desconectar(){
 		atorRede.desconectar();
@@ -52,28 +53,47 @@ public class AtorJogador{
 	}
 	public void iniciarPartida(int posicao){
 		if (posicao == 1){
-			gartic.jogador1.desenha = true;
+			gartic.jogadorLocal.desenha = true;
 			habilitarDesenho();
 			try {
-				gartic.jogador1.palavra = gartic.definirPalavraJogadorDesenha();
-				telaJogo.desenho.setText(gartic.jogador1.palavra);
+				gartic.jogadorLocal.palavra = gartic.definirPalavraJogadorDesenha();
+				telaJogo.desenho.setText(gartic.jogadorLocal.palavra);
 			} catch (IOException e){}
 		} else {
-			gartic.jogador2.desenha = false;
+			gartic.jogadorLocal.desenha = false;
 		}
 		go();
 	}
-	public void enviarJogada(){
-		if(gartic.jogador1.desenha){
-		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogador1));
-		telaJogo.enviar.setEnabled(false);
-		telaJogo.tempo.setText("Espere o Adversário");
-		desabilitarDesenho();
+	public void atualizarTelaJogador(){
+		if(gartic.jogadorLocal.desenha){
+			habilitarDesenho();
+			telaJogo.desenho.setText(gartic.jogadorLocal.palavra);
+			telaJogo.enviar.setEnabled(true);
+			telaJogo.respostas.setText("");
 		}else{
-		gartic.jogador1.tentativa = telaJogo.escreva.getText();
-		telaJogo.respostas.append(gartic.jogador1.getTentativas()+"\n");
-		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogador1));
+			telaJogo.enviar.setEnabled(true);
+			telaJogo.desenho.setText("");
+			telaJogo.respostas.setText("");
+		}
+	}
+	
+	public void enviarJogada(){
+		if(gartic.jogadorLocal.desenha){
+		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogadorLocal));
+		telaJogo.enviar.setEnabled(false);
+		desabilitarDesenho();
+		}else if (!gartic.jogadorLocal.desenha){
+		gartic.jogadorLocal.tentativa = telaJogo.escreva.getText();
+		telaJogo.respostas.append(gartic.jogadorLocal.getTentativas()+"\n");
+		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogadorLocal));
 		gartic.rodada.tentativas++;
+		if(gartic.jogadorLocal.tentativa.equals(gartic.jogadorLocal.palavra)){
+			gartic.jogadorLocal.acertou = true;
+			gartic.oponente.acertou = true;
+			gartic.rodada.encerrarRodada();
+		}else if(gartic.rodada.tentativas>4){
+			gartic.rodada.encerrarRodada();
+		}
 		}
 	}
 	public void habilitarDesenho(){
@@ -85,15 +105,23 @@ public class AtorJogador{
 	
 	public void receberJogada(Jogada jogada) {
 		Mensagem msg = (Mensagem)jogada;
-		if(!gartic.jogador1.desenha){
-			gartic.painel.receberDesenho(msg.getImagemGartic()); 
-			gartic.jogador1.palavra = msg.getJogador().palavra;
+		if(!gartic.jogadorLocal.desenha){
 			gartic.rodada.tempo = 0;
+			gartic.painel.receberDesenho(msg.getImagemGartic()); 
+			gartic.jogadorLocal.palavra = msg.getJogador().palavra;
+			gartic.oponente = msg.getJogador();
 			gartic.painel.repaint();
-		}else if(gartic.jogador1.desenha){
-			gartic.jogador2 = msg.getJogador();
-			telaJogo.respostas.append(gartic.jogador2.tentativa+"\n");
+		}else if(gartic.jogadorLocal.desenha){
+			gartic.oponente = msg.getJogador();
+			telaJogo.respostas.append(msg.getJogador().tentativa+"\n");
 			gartic.rodada.tentativas++;
+			if(gartic.oponente.tentativa.equals(gartic.oponente.palavra)){
+				gartic.jogadorLocal.acertou = true;
+				gartic.oponente.acertou = true;
+				gartic.rodada.encerrarRodada();
+			}else if(gartic.rodada.tentativas>4){
+				gartic.rodada.encerrarRodada();
+			}
 		}
 	}
 	public static void main(String args[]){
@@ -114,16 +142,13 @@ public class AtorJogador{
 			} else if (command == telaJogo.iniciarPartida.getActionCommand())	{
 				atorRede.iniciarPartidaRede();
 			} else if (command == telaJogo.enviar.getActionCommand()) {
-				if(gartic.jogador1.desenha){
+				if(gartic.jogadorLocal.desenha){
 					gartic.rodada.tempo = 0;
-				} else if(gartic.rodada.tentativas > 3){
-					gartic.rodada.tempo = 0;
+				}else{
 					enviarJogada();
-				} else{
-					enviarJogada();
-				}
+				}	
+			}
 					
 		}
 	}
-}
 }
