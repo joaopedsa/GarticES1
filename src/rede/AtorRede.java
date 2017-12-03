@@ -21,6 +21,7 @@ public class AtorRede implements OuvidorProxy {
 	boolean desenha = false;
 	
 	boolean iniciou = false;
+	
 	public AtorRede(AtorJogador atorJogador){
 		super();
 		this.atorJogador = atorJogador;

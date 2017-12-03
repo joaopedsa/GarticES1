@@ -45,7 +45,9 @@ public class AtorJogador{
 	}
 	public void conectar(){
 		gartic.jogadorLocal.nome = JOptionPane.showInputDialog("Nome do Jogador");
-		atorRede.conectar(gartic.jogadorLocal.nome, "localhost");
+		String ip = JOptionPane.showInputDialog("Insira o servidor");
+		JOptionPane.showMessageDialog(null, "Tentando Conectar");
+		atorRede.conectar(gartic.jogadorLocal.nome, ip);
 	}
 	public void desconectar(){
 		atorRede.desconectar();
