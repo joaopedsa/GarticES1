@@ -47,7 +47,6 @@ public class AtorRede implements OuvidorProxy {
 			JOptionPane.showMessageDialog(atorJogador.getFrame(), e.getMessage());
 			e.printStackTrace();
 		}
-		
 	}
 	
 	/**
