@@ -141,6 +141,8 @@ public class InterfaceJogador extends JFrame{
         opcoes.add(desconectar);
         opcoes.add(iniciarPartida);
         limparTela.add(ApagarDesenho);
+        //ao apertar enter o botao enviar é ativado;
+        getRootPane().setDefaultButton(enviar);
         this.setVisible(true);
     }
 }

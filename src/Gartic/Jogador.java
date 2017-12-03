@@ -11,7 +11,7 @@ String tentativa = "";
 String palavra = "";
 boolean acertou = false;
 
-public String getTentativas(){
+public String getTentativa(){
 	return tentativa;
 }
 public int getPontuacao(){

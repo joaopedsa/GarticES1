@@ -61,6 +61,7 @@ public class AtorJogador{
 			} catch (IOException e){}
 		} else {
 			gartic.jogadorLocal.desenha = false;
+			telaJogo.enviar.setEnabled(false);
 		}
 		go();
 	}
@@ -71,7 +72,7 @@ public class AtorJogador{
 			telaJogo.enviar.setEnabled(true);
 			telaJogo.respostas.setText("");
 		}else{
-			telaJogo.enviar.setEnabled(true);
+			telaJogo.enviar.setEnabled(false);
 			telaJogo.desenho.setText("");
 			telaJogo.respostas.setText("");
 		}
@@ -85,7 +86,7 @@ public class AtorJogador{
 		}else if (!gartic.jogadorLocal.desenha){
 		gartic.jogadorLocal.tentativa = telaJogo.escreva.getText();
 		telaJogo.escreva.setText("");
-		telaJogo.respostas.append(gartic.jogadorLocal.getTentativas()+"\n");
+		telaJogo.respostas.append(gartic.jogadorLocal.getTentativa()+"\n");
 		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogadorLocal));
 		gartic.rodada.tentativas++;
 		if(gartic.jogadorLocal.tentativa.equals(gartic.jogadorLocal.palavra)){
@@ -112,6 +113,7 @@ public class AtorJogador{
 			gartic.jogadorLocal.palavra = msg.getJogador().palavra;
 			gartic.oponente = msg.getJogador();
 			gartic.painel.repaint();
+			telaJogo.enviar.setEnabled(true);
 		}else if(gartic.jogadorLocal.desenha){
 			gartic.oponente = msg.getJogador();
 			telaJogo.respostas.append(msg.getJogador().tentativa+"\n");

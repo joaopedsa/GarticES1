@@ -43,7 +43,7 @@ public class Gartic{
 
 	        Random radom  = new Random();
 	        int aleatorio = 0;
-	        aleatorio = radom.nextInt(38);
+	        aleatorio = radom.nextInt(37);
 	        palavra = lines.get(aleatorio);
 	        return palavra;
 	    }
@@ -61,8 +61,6 @@ public class Gartic{
 	}
 	public Gartic getGartic(){
 		return this;
-	}
-	public void setTipoJogada(int tipoJogada){
 	}
 	public boolean informarConectado(){
 		return conectados;
@@ -127,11 +125,6 @@ public class Gartic{
 		}
 		Thread thread = new Thread(rodada);
 		thread.start();
-	}
-	public void resetar(){
-	}
-	public boolean informarEmAndamanto(){
-		return partidaEmAndamento;
 	}
 	public boolean informarDesenha(){
 		return jogadorLocal.desenha;
