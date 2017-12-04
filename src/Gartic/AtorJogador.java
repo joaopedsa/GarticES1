@@ -8,17 +8,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import br.ufsc.inf.leobr.cliente.Jogada;
-import rede.AtorRede;
+import rede.AtorNetGames;
 import rede.Mensagem;
 
 public class AtorJogador{
-	protected AtorRede atorRede;
-	public Gartic gartic;
+	protected AtorNetGames atorRede;
+	protected Gartic gartic;
 	protected OuveClique clique;
-	InterfaceJogador telaJogo;
+	InterfaceGartic telaJogo;
 	public AtorJogador(){
 	super();
-	atorRede = new AtorRede(this);
+	atorRede = new AtorNetGames(this,gartic);
 	gartic = new Gartic();
 	clique = new OuveClique(gartic.imagem,gartic.painel);
 	}
@@ -32,7 +32,7 @@ public class AtorJogador{
 	}
 	public void iniciaTela(){
 		Interacoes interacao = new Interacoes();
-		telaJogo = new InterfaceJogador(gartic);
+		telaJogo = new InterfaceGartic(gartic);
 		telaJogo.conectarSe.addActionListener(interacao);
 		telaJogo.ApagarDesenho.addActionListener(interacao);
 		telaJogo.desconectar.addActionListener(interacao);
@@ -95,7 +95,7 @@ public class AtorJogador{
 			gartic.jogadorLocal.acertou = true;
 			gartic.oponente.acertou = true;
 			gartic.rodada.encerrarRodada();
-		}else if(gartic.rodada.tentativas>4){
+		}else if(gartic.rodada.tentativas>3){
 			gartic.rodada.encerrarRodada();
 		}
 		}
@@ -124,7 +124,7 @@ public class AtorJogador{
 				gartic.jogadorLocal.acertou = true;
 				gartic.oponente.acertou = true;
 				gartic.rodada.encerrarRodada();
-			}else if(gartic.rodada.tentativas>4){
+			}else if(gartic.rodada.tentativas>3){
 				gartic.rodada.encerrarRodada();
 			}
 		}

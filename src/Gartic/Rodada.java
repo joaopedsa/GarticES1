@@ -37,13 +37,7 @@ AtorJogador atorJogador;
     		atorJogador.atualizarTelaJogador();
     		tentativas = 0;
     	}else{
-    		if(atorJogador.gartic.jogadorLocal.getPontuacao()>atorJogador.gartic.oponente.getPontuacao()){
-    			JOptionPane.showMessageDialog(null, "Você ganhou!!");
-    			System.exit(0);
-    		}else{
-    			JOptionPane.showMessageDialog(null, "Você Perdeu!");
-    			System.exit(0);
-    		}
+    		atorJogador.gartic.finalizarPartida();
     	}
     }
     public int getTentativa(){

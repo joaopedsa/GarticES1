@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 public class Gartic{
 	protected ImagemGartic imagem;
 	protected Reprodutor painel;
@@ -70,46 +72,52 @@ public class Gartic{
 	}
 	public void aplicarPontuacao(){
 		if((jogadorLocal.desenha && jogadorLocal.acertou)){
-			jogadorLocal.pontuacao = jogadorLocal.pontuacao + 60;
+			jogadorLocal.pontuacao = jogadorLocal.pontuacao + 40;
 			switch(rodada.tentativas){
 			case 1:
-				oponente.pontuacao = oponente.pontuacao + 80;
-				break;
-			case 2:
 				oponente.pontuacao = oponente.pontuacao + 60;
 				break;
-			case 3:
+			case 2:
 				oponente.pontuacao = oponente.pontuacao + 40;
 				break;
-			case 4:
+			case 3:
 				oponente.pontuacao = oponente.pontuacao + 20;
 				break;
-			case 5:
+			case 4:
 				oponente.pontuacao = oponente.pontuacao + 10;
 				break;
 			}
 		}else if(!jogadorLocal.desenha && jogadorLocal.acertou) {
 			switch(rodada.tentativas){
 			case 1:
-				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 80;
-				break;
-			case 2:
 				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 60;
 				break;
-			case 3:
+			case 2:
 				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 40;
 				break;
-			case 4:
+			case 3:
 				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 20;
 				break;
-			case 5:
+			case 4:
 				jogadorLocal.pontuacao = jogadorLocal.pontuacao + 10;
 				break;
 			}
-			oponente.pontuacao = oponente.pontuacao + 60;
+			oponente.pontuacao = oponente.pontuacao + 40;
 		}
 	}
 	public void finalizarPartida(){
+		imagem.limpaArray();
+		painel.receberDesenho(imagem);
+		painel.repaint();
+		jogadorLocal.acertou = false;
+		oponente.acertou = false;
+		if(jogadorLocal.getPontuacao()>oponente.getPontuacao()){
+			JOptionPane.showMessageDialog(null, "Você ganhou!!");
+			System.exit(0);
+		}else{
+			JOptionPane.showMessageDialog(null, "Você Perdeu!");
+			System.exit(0);
+		}
 	}
 	public void iniciarNovaRodada(){
 		definirJogadorQueDesenha();
