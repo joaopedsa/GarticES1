@@ -15,8 +15,6 @@ import br.ufsc.inf.leobr.cliente.exception.NaoPossivelConectarException;
 
 public class AtorNetGames implements OuvidorProxy {
 
-	private Gartic gartic;
-	
 	private AtorJogador atorJogador;
 	
 	private Proxy proxy;
@@ -26,9 +24,8 @@ public class AtorNetGames implements OuvidorProxy {
 	boolean iniciou = false;
 	
 	
-	public AtorNetGames(AtorJogador atorJogador , Gartic gartic){
+	public AtorNetGames(AtorJogador atorJogador){
 		super();
-		this.gartic = gartic;
 		this.atorJogador = atorJogador;
 		proxy = Proxy.getInstance();
 		proxy.addOuvinte(this);
@@ -120,7 +117,7 @@ public class AtorNetGames implements OuvidorProxy {
 
 	public String obterNomeAdversario() {
 		String nome;
-		if (gartic.informarDesenha()){
+		if (atorJogador.gartic.informarDesenha()){
 			nome = proxy.obterNomeAdversario(2);
 		}else{
 			nome = proxy.obterNomeAdversario(1);

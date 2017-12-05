@@ -13,12 +13,12 @@ import rede.Mensagem;
 
 public class AtorJogador{
 	protected AtorNetGames atorRede;
-	protected Gartic gartic;
+	public Gartic gartic;
 	protected OuveClique clique;
 	InterfaceGartic telaJogo;
 	public AtorJogador(){
 	super();
-	atorRede = new AtorNetGames(this,gartic);
+	atorRede = new AtorNetGames(this);
 	gartic = new Gartic();
 	clique = new OuveClique(gartic.imagem,gartic.painel);
 	}
