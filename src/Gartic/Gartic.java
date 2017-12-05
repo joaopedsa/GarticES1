@@ -112,10 +112,10 @@ public class Gartic{
 		jogadorLocal.acertou = false;
 		oponente.acertou = false;
 		if(jogadorLocal.getPontuacao()>oponente.getPontuacao()){
-			JOptionPane.showMessageDialog(null, "Você ganhou!!");
+			JOptionPane.showMessageDialog(null, "Jogador " + jogadorLocal.nome+" Venceu!");
 			System.exit(0);
 		}else{
-			JOptionPane.showMessageDialog(null, "Você Perdeu!");
+			JOptionPane.showMessageDialog(null, "Jogador " + oponente.nome+" Venceu!");
 			System.exit(0);
 		}
 	}

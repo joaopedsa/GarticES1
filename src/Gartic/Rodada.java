@@ -20,6 +20,12 @@ AtorJogador atorJogador;
     public void tentarResposta(String palavraDigitada, JTextArea respostas){
     	respostas.append(palavraDigitada+"\n");
     }
+    public void zerarTempo(){
+    	tempo = 0;
+    }
+    public void incTentativas(){
+    	tentativas++;
+    }
     /*!
      * aplica a pontuação;
      * verifica se existe um vencedor;
@@ -53,7 +59,7 @@ AtorJogador atorJogador;
 				textoTempo.setText("Tempo "+tempo+" seg");
 			}
 			if(atorJogador.gartic.jogadorLocal.desenha){
-				atorJogador.enviarJogada();
+				atorJogador.realizarJogada();
 				atorJogador.telaJogo.tempo.setText("");
 				JOptionPane.showMessageDialog(null, "Aguarde a Jogada do Adversário!");
 			}else{

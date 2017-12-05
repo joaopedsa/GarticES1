@@ -80,7 +80,7 @@ public class AtorJogador{
 		}
 	}
 	
-	public void enviarJogada(){
+	public void realizarJogada(){
 		if(gartic.jogadorLocal.desenha){
 		atorRede.enviaJogada(new Mensagem(gartic.imagem,gartic.jogadorLocal));
 		telaJogo.enviar.setEnabled(false);
@@ -110,7 +110,7 @@ public class AtorJogador{
 	public void receberJogada(Jogada jogada) {
 		Mensagem msg = (Mensagem)jogada;
 		if(!gartic.jogadorLocal.desenha){
-			gartic.rodada.tempo = 0;
+			gartic.rodada.zerarTempo();
 			gartic.painel.receberDesenho(msg.getImagemGartic()); 
 			gartic.jogadorLocal.palavra = msg.getJogador().palavra;
 			gartic.oponente = msg.getJogador();
@@ -148,9 +148,9 @@ public class AtorJogador{
 				atorRede.iniciarPartidaRede();
 			} else if (command == telaJogo.enviar.getActionCommand()) {
 				if(gartic.jogadorLocal.desenha){
-					gartic.rodada.tempo = 0;
+					gartic.rodada.zerarTempo();
 				}else{
-					enviarJogada();
+					realizarJogada();
 				}	
 			}
 					
